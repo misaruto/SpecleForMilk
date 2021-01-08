@@ -1,0 +1,125 @@
+const bleManagerEmitter = new NativeEventEmitter(NativeModules.BleManager);
+
+  const [bondedDevices, setBondedDevices] = useState<BleManager.Peripheral[]>(
+    [],
+  );
+  const [connectionSettings, setConnectionSettings] = useState({
+    peripheralId: '',
+    serviceUUid: '',
+    characteristicUUID: '',
+  });
+  const handlerDiscover = useRef<EmitterSubscription | null>(null);
+  const handlerConnect = useRef<EmitterSubscription | null>(null);
+
+  const [state, setState] = useState({
+    scanning: false,
+    peripherals: new Map<BleManager.Peripheral, {}>(),
+    appState: null,
+  });
+
+  const handleAppStateChange = useCallback((nextAppState) => {
+    setState((prevState) => ({...prevState, appState: nextAppState}));
+  }, []);
+
+  const handleDiscoverPeripheral = useCallback((event) => {
+    console.log('teste', {event});
+  }, []);
+
+  const handleConnectPeripheral = useCallback((event) => {
+    console.log('teste', {event});
+  }, []);
+
+  useEffect(() => {
+    AppState.addEventListener('change', handleAppStateChange);
+
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange);
+    };
+  }, [handleAppStateChange]);
+
+  useEffect(() => {
+    if (!handlerDiscover.current) {
+      handlerDiscover.current = bleManagerEmitter.addListener(
+        'BleManagerDiscoverPeripheral',
+        handleDiscoverPeripheral,
+      );
+      return () => {
+        handlerDiscover.current?.remove();
+      };
+    }
+  }, [handleDiscoverPeripheral]);
+
+  useEffect(() => {
+    if (!handlerConnect.current) {
+      handlerConnect.current = bleManagerEmitter.addListener(
+        'BleManagerDiscoverPeripheral',
+        handleConnectPeripheral,
+      );
+      return () => {
+        handlerDiscover.current?.remove();
+      };
+    }
+  }, [handleConnectPeripheral]);
+  useEffect(() => {
+    BleManager.start({showAlert: false});
+  }, []);
+
+  const checkPermissions = useCallback(async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Example App',
+          message: 'Example App access to your location ',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('You can use the location');
+      } else {
+        console.log('location permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }, []);
+
+  const getConnectionConfiguration = useCallback(async () => {
+    await BleManager.connect(connectionSettings.peripheralId);
+    console.log('Peripheral id:', connectionSettings.peripheralId);
+    console.log(
+      await BleManager.retrieveServices(connectionSettings.peripheralId),
+    );
+  }, [connectionSettings]);
+  const getBondedDevices = useCallback(async () => {
+    setBondedDevices(await BleManager.getBondedPeripherals());
+  }, []);
+  const scanAndConnect = useCallback(async () => {
+    bondedDevices.map((device) => {
+      console.log('device', device.advertising.localName);
+      if (device.advertising.localName === 'Lenovo') {
+        console.log('Finded device', device);
+        setConnectionSettings({
+          peripheralId: device.id,
+          serviceUUid: '',
+          characteristicUUID: '',
+        });
+      }
+    });
+
+    console.log('State: ', await BleManager.checkState());
+    handleAppStateChange({
+      scanning: false,
+      peripherals: bondedDevices,
+      appState: AppState,
+    });
+    console.log(state);
+    getConnectionConfiguration();
+  }, [bondedDevices, handleAppStateChange, state, getConnectionConfiguration]);
+
+  useEffect(() => {
+    checkPermissions();
+    getBondedDevices();
+  }, [checkPermissions, getBondedDevices]);
