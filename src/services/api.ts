@@ -2,7 +2,7 @@ import axios from 'axios';
 import {AxiosRequestConfig} from 'axios';
 
 export const config: AxiosRequestConfig = {
-  baseURL: 'http://192.168.0.46:3333',
+  baseURL: 'http://bd16ed04ed1f.ngrok.io/api/v1/',
 };
 
 const api = axios.create(config);

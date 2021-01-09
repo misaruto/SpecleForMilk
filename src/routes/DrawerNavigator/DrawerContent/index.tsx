@@ -23,10 +23,12 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import {ThemeContext} from '../../../contexts/ThemeContext';
+import AuthContext from '../../../contexts/AuthContext';
 
 function DrawerContent(props: DrawerContentComponentProps) {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const {changeTheme} = useContext(ThemeContext);
+  const {logOut} = useContext(AuthContext);
   if (props.navigation.isFocused()) {
     updateSwitchThemes();
   }
@@ -101,7 +103,7 @@ function DrawerContent(props: DrawerContentComponentProps) {
             />
           )}
           onPress={() => {
-            alert('Certeza??');
+            logOut();
           }}
         />
       </Drawer.Section>

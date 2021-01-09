@@ -27,7 +27,7 @@ export default function TopTabNavigator() {
         bounces: true,
         activeTintColor: theme === 'dark' ? '#1662ff' : '#1682C2',
         inactiveTintColor: theme === 'dark' ? 'gray' : '#212121',
-        showIcon: false,
+        showIcon: true,
         contentContainerStyle: {backgroundColor: Colors[theme].background},
         iconStyle: {alignSelf: 'center', flex: 0.5, width: 30, height: 10},
       }}>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import {useForm} from 'react-hook-form';
 
@@ -12,14 +12,19 @@ import {useNavigation} from '@react-navigation/native';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 import {ILoginData} from '../../../types';
+import AuthContext from '../../contexts/AuthContext';
 
 function Login() {
+  const auth = useContext(AuthContext);
   const [showSpinner, setShowSpinner] = useState(false);
-
   const {register, handleSubmit, setValue} = useForm();
 
   const handleSubmitForm = async (data: ILoginData) => {
     setShowSpinner(true);
+    setTimeout(() => {
+      setShowSpinner(false);
+    }, 4000);
+    await auth.logIn(data);
   };
 
   useEffect(() => {

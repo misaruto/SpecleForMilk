@@ -1,16 +1,15 @@
-import AsyncStorage from '@react-native-community/async-storage';
-import * as React from 'react';
-import {ColorSchemeName} from 'react-native';
-import {ThemeContext} from '../contexts/ThemeContext';
-import useColorScheme from './useColorScheme';
+import React from 'react';
+
+import AuthContext from '../contexts/AuthContext';
 
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const {changeTheme} = React.useContext(ThemeContext);
+  const {getLoggedIn} = React.useContext(AuthContext);
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
+        await getLoggedIn();
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
@@ -20,7 +19,7 @@ export default function useCachedResources() {
     }
 
     loadResourcesAndDataAsync();
-  }, [changeTheme]);
+  }, [getLoggedIn]);
 
   return isLoadingComplete;
 }
