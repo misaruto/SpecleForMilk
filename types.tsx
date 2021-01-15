@@ -1,7 +1,7 @@
 export type UnAuthStackParamList = {
   Login: Object;
-  Cadastro: Object;
-  RecoveryPasswd: Object;
+  Register: Object;
+  RecoveryPassword: Object;
   SeeOffers: Object;
 };
 
@@ -34,10 +34,15 @@ export type SettingsParamList = {
   Settings: Object;
 };
 
+export interface IMetaInfo {
+  estado: string;
+  cidade: string;
+}
 export interface IUser {
   name: string;
   email: string;
-  metaInfo: string;
+  metaInfo: IMetaInfo | string;
+  profileImage: string;
 }
 export interface ILoginData extends FormData {
   login: string;

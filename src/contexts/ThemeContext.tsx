@@ -12,7 +12,7 @@ export const ThemeContext = React.createContext({
   changeTheme(_newTheme: NonNullable<ColorSchemeName>) {},
 });
 
-function ThemeProvider({children}) {
+const ThemeProvider: React.FC = ({children}) => {
   const [theme, setTheme] = useState('dark' as NonNullable<ColorSchemeName>);
   const changeTheme = useCallback((newTheme: NonNullable<ColorSchemeName>) => {
     setTheme(newTheme);
@@ -42,5 +42,5 @@ function ThemeProvider({children}) {
       {children}
     </ThemeContext.Provider>
   );
-}
+};
 export default ThemeProvider;

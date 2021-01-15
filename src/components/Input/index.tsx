@@ -1,15 +1,18 @@
-import React, {Ref, RefObject} from 'react';
+import React from 'react';
 
 import {TextInput, TextInputProps, Text} from 'react-native';
 import Colors from '../../constants/Colors';
 import {ThemeContext} from '../../contexts/ThemeContext';
 import {View} from '../Themed';
 import styles from './styles';
-
+export interface InputErrorProps {
+  isError: boolean;
+  msg?: string;
+}
 interface Props extends TextInputProps {
   name: string;
   placeHolder?: string;
-  error?: string;
+  error: InputErrorProps;
 }
 
 const Input: React.FC<Props> = ({name, placeHolder, error, ...rest}) => {
@@ -21,9 +24,11 @@ const Input: React.FC<Props> = ({name, placeHolder, error, ...rest}) => {
           (styles.input,
           {
             backgroundColor: Colors[theme].background,
-            borderColor: Colors[theme].text,
+            borderColor: error.isError
+              ? Colors[theme].textError
+              : Colors[theme].text,
             borderBottomWidth: 1,
-            fontSize: 28,
+            fontSize: 22,
             alignSelf: 'center',
             width: '86%',
             color: Colors[theme].text,
@@ -34,7 +39,22 @@ const Input: React.FC<Props> = ({name, placeHolder, error, ...rest}) => {
         placeholder={placeHolder}
         {...rest}
       />
-      {error && <Text style={styles.inputError}>{error}</Text>}
+      {error.isError && error.msg && (
+        <Text
+          style={
+            (styles.inputError,
+            {
+              marginTop: 2,
+              alignSelf: 'center',
+              textAlign: 'center',
+              width: '86%',
+              height: 28,
+              color: Colors[theme].textError,
+            })
+          }>
+          {error.msg}
+        </Text>
+      )}
     </View>
   );
 };

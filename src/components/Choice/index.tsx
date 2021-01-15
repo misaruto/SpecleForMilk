@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import { View } from "react-native";
+import React, {useEffect, useRef} from 'react';
+import {View} from 'react-native';
 
-import { Picker } from "@react-native-community/picker";
+import {Picker} from '@react-native-community/picker';
 
-import { useField } from "@unform/core";
+import {useField} from '@unform/core';
 
 interface OptionsProps {
   id: string;
@@ -15,13 +15,13 @@ interface Props {
   options: OptionsProps[];
 }
 
-const Choice: React.FC<Props> = ({ name, options }) => {
+const Choice: React.FC<Props> = ({name, options}) => {
   const choiceRef = useRef(null);
-  const { fieldName, defaultValue, registerField, error } = useField(name);
+  const {fieldName, defaultValue, registerField, error} = useField(name);
   useEffect(() => {
     registerField({
       name: fieldName,
-      path: "value",
+      path: 'value',
       ref: choiceRef.current,
     });
   }, [fieldName, registerField]);

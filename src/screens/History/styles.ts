@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     borderBottomWidth: 1,
-    borderTopWidth: 1,
     borderColor: 'black',
   },
   verEvolucaoTexto: {

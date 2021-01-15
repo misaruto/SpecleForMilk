@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 
 import {
   DrawerContentScrollView,
@@ -15,7 +15,7 @@ import {
   TouchableRipple,
 } from 'react-native-paper';
 
-import {Text, View} from '../../../components/Themed';
+import {Text, TouchableOpacity, View} from '../../../components/Themed';
 import styles from './styles';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -27,14 +27,13 @@ import AuthContext from '../../../contexts/AuthContext';
 
 function DrawerContent(props: DrawerContentComponentProps) {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const {changeTheme} = useContext(ThemeContext);
-  const {logOut} = useContext(AuthContext);
-  if (props.navigation.isFocused()) {
-    updateSwitchThemes();
-  }
-  async function updateSwitchThemes() {
-    setIsDarkTheme((await AsyncStorage.getItem('theme')) === 'dark');
-  }
+  const {changeTheme, theme} = useContext(ThemeContext);
+  const {logOut, setShowSpinner, user} = useContext(AuthContext);
+
+  const updateSwitchThemes = useCallback(async () => {
+    setIsDarkTheme(theme === 'dark');
+  }, [theme]);
+
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
 
@@ -47,14 +46,15 @@ function DrawerContent(props: DrawerContentComponentProps) {
     }
   };
 
-  const user = {
-    nome: 'José Francisco Maia',
-    cidade: 'Mercês',
-    uf: 'MG',
-
-    imgUri:
-      'https://github.com/misaruto/Vackathon-mobile/blob/main/src/assets/images/jose.png?raw=true',
+  const navigateToConfigurations = () => {
+    props.navigation.navigate('Settings');
   };
+
+  useEffect(() => {
+    updateSwitchThemes();
+    console.log(user);
+  }, [updateSwitchThemes, user]);
+
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
@@ -63,24 +63,33 @@ function DrawerContent(props: DrawerContentComponentProps) {
             <View style={{flexDirection: 'row', marginTop: 15}}>
               <Avatar.Image
                 source={{
-                  uri: user.imgUri,
+                  uri: user.profileImage,
                 }}
               />
               <View style={{flexDirection: 'column', marginLeft: 15}}>
                 <Title style={styles.title}>
-                  <Text>{user.nome}</Text>
+                  <Text>
+                    {user.name
+                      ? user.name.replace("'", '').replace("'", '')
+                      : ''}
+                  </Text>
                 </Title>
                 <Caption>
                   <Text>
                     <SimpleLineIcons name="location-pin" size={14} />
-                    {user.cidade} - {user.uf}
+                    {user.metaInfo && typeof user.metaInfo !== 'string'
+                      ? ' ' +
+                        user.metaInfo.cidade +
+                        ' - ' +
+                        user.metaInfo.estado
+                      : ''}
                   </Text>
                 </Caption>
               </View>
             </View>
           </View>
           <Drawer.Section>
-            <Text style={{marginLeft: 6}}>Preferencias</Text>
+            <Text style={{marginLeft: 6, marginTop: 4}}>Preferencias</Text>
             <TouchableRipple onPress={toggleTheme}>
               <View style={styles.preference}>
                 <Text style={{fontSize: 20, marginLeft: 4}}>Tema Escuro</Text>
@@ -89,6 +98,18 @@ function DrawerContent(props: DrawerContentComponentProps) {
                 </View>
               </View>
             </TouchableRipple>
+          </Drawer.Section>
+          <Drawer.Section>
+            <TouchableOpacity onPress={navigateToConfigurations}>
+              <View style={styles.preference}>
+                <Text style={{fontSize: 20, marginLeft: 4}}>Configurações</Text>
+                <SimpleLineIcons
+                  size={23}
+                  name="settings"
+                  color={isDarkTheme ? '#fff' : '#000'}
+                />
+              </View>
+            </TouchableOpacity>
           </Drawer.Section>
         </View>
       </DrawerContentScrollView>
@@ -103,6 +124,7 @@ function DrawerContent(props: DrawerContentComponentProps) {
             />
           )}
           onPress={() => {
+            setShowSpinner(true);
             logOut();
           }}
         />

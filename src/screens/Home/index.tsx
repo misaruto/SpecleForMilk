@@ -2,13 +2,12 @@ import React from 'react';
 import {Text, View} from '../../components/Themed';
 
 import UserInfoItem from '../../components/UserInfoItem';
-import Header from '../../components/Header';
 
 import styles from './styles';
 import LeituraItem from '../../components/LeituraItem';
-import useColorScheme from '../../hooks/useColorScheme';
+import {ScrollView} from 'react-native-gesture-handler';
 
-function Home(props: any) {
+function Home() {
   const user = {
     nome: 'José Francisco Maia (eu)',
     cidade: 'Mercês',
@@ -52,20 +51,22 @@ function Home(props: any) {
   };
   return (
     <View style={styles.container}>
-      <View>
-        <UserInfoItem user={user} />
-        <UserInfoItem user={laticionios} />
-      </View>
-      <View style={styles.ultimaLeituraContainer}>
-        <Text style={styles.ultimaLeituraTitle}>
-          Ultima Leitura
-          <Text style={styles.ultimaLeituraData}>{leitura.data}</Text>
-        </Text>
-        <LeituraItem leitura={leitura} />
-        <LeituraItem leitura={leitura2} />
-        <LeituraItem leitura={leitura3} />
-        <LeituraItem leitura={leitura4} />
-      </View>
+      <ScrollView>
+        <View>
+          {/* <UserInfoItem user={user} /> */}
+          <UserInfoItem user={laticionios} />
+        </View>
+        <View style={styles.ultimaLeituraContainer}>
+          <Text style={styles.ultimaLeituraTitle}>
+            Ultima Leitura
+            <Text style={styles.ultimaLeituraData}>{leitura.data}</Text>
+          </Text>
+          <LeituraItem leitura={leitura} />
+          <LeituraItem leitura={leitura2} />
+          <LeituraItem leitura={leitura3} />
+          <LeituraItem leitura={leitura4} />
+        </View>
+      </ScrollView>
     </View>
   );
 }

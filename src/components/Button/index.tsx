@@ -1,18 +1,17 @@
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import {Text} from 'react-native';
 import {
   TouchableOpacity,
   TouchableOpacityProps as ThemedTouchableOpacityProps,
-  useThemeColor,
-} from "../Themed";
-import styles from "./styles";
+} from '../Themed';
+import styles from './styles';
 
 interface Props {
   label: string;
 }
 export type ButtonProps = Props & ThemedTouchableOpacityProps;
 
-const Button: React.FC<ButtonProps> = ({ label, ...rest }) => {
+const Button: React.FC<ButtonProps> = ({label, ...rest}) => {
   return (
     <TouchableOpacity style={styles.button} {...rest}>
       <Text style={styles.buttonText}>{label}</Text>

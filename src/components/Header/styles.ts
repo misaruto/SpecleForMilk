@@ -2,38 +2,68 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   header: {
-    position: 'relative',
-    flex: 1,
-    maxHeight: 50,
-    width: '100%',
+    minHeight: 60,
+    maxHeight: 60,
+
+    alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'center',
+  },
+  logoContainer: {
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   logoImage: {
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 180,
     height: 50,
   },
-
-  textContainer: {
+  backAndTextContainer: {
     flex: 1,
-    width: '100%',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    margin: 0,
-    padding: 0,
+    flexDirection: 'row',
+    height: 50,
+    left: 2,
   },
+  drawerButtonContainer: {
+    position: 'absolute',
+    left: 2,
+    flexDirection: 'row',
+    height: 50,
+  },
+  drawerButton: {
+    flex: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
+    width: 60,
+    height: 52,
+    left: 4,
+  },
+
+  backButton: {
+    flex: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
+    width: 60,
+    height: 52,
+    left: 4,
+  },
+
   title: {
     flex: 1,
-    textAlign: 'center',
-    fontSize: 26,
-    fontWeight: '700',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    fontSize: 22,
+    fontWeight: 'bold',
   },
-  text: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: 18,
-    fontWeight: '500',
-  },
+
+  // text: {
+  //   flex: 1,
+  //   textAlign: 'center',
+  //   fontSize: 18,
+  //   fontWeight: '500',
+  // },
 });
 
 export default styles;

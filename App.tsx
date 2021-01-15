@@ -11,22 +11,25 @@
 import React from 'react';
 
 import Routes from './src/routes';
-import SplashScreen from 'react-native-splash-screen';
+
 import ThemeProvider from './src/contexts/ThemeContext';
 import useCachedResources from './src/hooks/useCachedResources';
 import {AuthProvider} from './src/contexts/AuthContext';
+import {ActivityIndicator} from 'react-native';
 const App = () => {
   const isLoadingComplete = useCachedResources();
 
-  return (
-    <AuthProvider>
-      {isLoadingComplete && SplashScreen.hide() ? (
+  if (!isLoadingComplete) {
+    return <ActivityIndicator />;
+  } else {
+    return (
+      <AuthProvider>
         <ThemeProvider>
           <Routes />
         </ThemeProvider>
-      ) : null}
-    </AuthProvider>
-  );
+      </AuthProvider>
+    );
+  }
 };
 
 export default App;

@@ -2,8 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   inputContainer: {
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-    maxHeight: 60,
+    maxHeight: 100,
     width: '100%',
     flex: 1,
     justifyContent: 'center',
@@ -12,14 +11,19 @@ const styles = StyleSheet.create({
   input: {
     alignSelf: 'center',
     width: '86%',
-    fontSize: 28,
+    fontSize: 22,
     paddingHorizontal: 2,
   },
   inputLabel: {
     fontWeight: '700',
-    fontSize: 26,
+    fontSize: 22,
   },
-  inputError: {},
+  inputError: {
+    alignSelf: 'center',
+    width: '86%',
+    fontSize: 12,
+    paddingHorizontal: 2,
+  },
 });
 
 export default styles;
