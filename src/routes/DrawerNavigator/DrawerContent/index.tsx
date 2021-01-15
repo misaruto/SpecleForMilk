@@ -78,10 +78,7 @@ function DrawerContent(props: DrawerContentComponentProps) {
                   <Text>
                     <SimpleLineIcons name="location-pin" size={14} />
                     {user.metaInfo && typeof user.metaInfo !== 'string'
-                      ? ' ' +
-                        user.metaInfo.cidade +
-                        ' - ' +
-                        user.metaInfo.estado
+                      ? ' ' + user.metaInfo.cidade + ' - ' + user.metaInfo.uf
                       : ''}
                   </Text>
                 </Caption>

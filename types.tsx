@@ -37,6 +37,7 @@ export type SettingsParamList = {
 export interface IMetaInfo {
   estado: string;
   cidade: string;
+  uf: string;
 }
 export interface IUser {
   name: string;
