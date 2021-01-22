@@ -7,13 +7,7 @@ import React, {
 } from 'react';
 import {AxiosResponse} from 'axios';
 import api from '../services/api';
-import {
-  IUser,
-  ILogoutResponse,
-  IUserInfo,
-  ILoginData,
-  IAuthResponse,
-} from '../../types';
+import {IUser, ILogoutResponse, IUserInfo} from '../../types';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Alert} from 'react-native';
 import metaInfoParser from '../utils/metaInfoParser';
@@ -30,31 +24,29 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
+export const getUserInfo = async (cookie: string) => {
+  const loggedUser: IUserInfo = await api
+    .get('users/getUserInfo', {
+      headers: {Cookie: 'uid=' + cookie},
+    })
+    .then((response: AxiosResponse<IUserInfo>) => {
+      if (response.status === 200 && response.data.ok) {
+        return response.data || ({} as IUserInfo);
+      } else {
+        return {} as IUserInfo;
+      }
+    })
+    .catch(() => {
+      throw Error('verifique sua conexão com a internet');
+    });
+
+  return loggedUser.data;
+};
 export const AuthProvider: React.FC = ({children}) => {
   const [loading, setLoading] = useState(true);
-
   const [user, setUser] = useState<IUser>({} as IUser);
   const [signed, setSigned] = useState(false);
   const token = useRef('');
-
-  const getUserInfo = useCallback(async (cookie: string) => {
-    const loggedUser: IUserInfo = await api
-      .get('users/getUserInfo', {
-        headers: {Cookie: 'uid=' + cookie},
-      })
-      .then((response: AxiosResponse<IUserInfo>) => {
-        if (response.status === 200 && response.data.ok) {
-          return response.data || ({} as IUserInfo);
-        } else {
-          return {} as IUserInfo;
-        }
-      })
-      .catch(() => {
-        throw Error('verifique sua conexão com a internet');
-      });
-
-    return loggedUser.data;
-  }, []);
 
   async function logOut() {
     await api
@@ -73,7 +65,6 @@ export const AuthProvider: React.FC = ({children}) => {
       })
       .catch(() => {
         Alert.alert('Sem internet, impossível fazer logout');
-        setShowSpinner(false);
       });
   }
   const getLoggedIn = useCallback(async () => {
@@ -106,7 +97,7 @@ export const AuthProvider: React.FC = ({children}) => {
       setSigned(false);
     }
     setLoading(false);
-  }, [token, getUserInfo]);
+  }, [token]);
 
   return (
     <AuthContext.Provider

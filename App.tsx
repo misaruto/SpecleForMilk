@@ -23,11 +23,11 @@ const App = () => {
     return <ActivityIndicator />;
   } else {
     return (
-      <AuthProvider>
-        <ThemeProvider>
+      <ThemeProvider>
+        <AuthProvider>
           <Routes />
-        </ThemeProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </ThemeProvider>
     );
   }
 };

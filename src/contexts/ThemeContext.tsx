@@ -3,14 +3,19 @@ import {StatusBar} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {ColorSchemeName} from 'react-native';
 import Colors from '../constants/Colors';
+import Spinner from 'react-native-loading-spinner-overlay';
 
-// The useColorScheme value is always either light or dark, but the built-in
-// type suggests that it can be null. This will not happen in practice, so this
-// makes it a bit easier to work with.
+export interface ISpinnerProps {
+  isVisible: boolean;
+  setIsVisible(_visible: boolean): void;
+  isCancelable: boolean;
+  setIsCancelable(_cancelable: boolean): void;
+}
 
 export const ThemeContext = React.createContext({
   theme: 'light' as NonNullable<ColorSchemeName>,
   changeTheme(_newTheme: NonNullable<ColorSchemeName>) {},
+  spinner: {} as ISpinnerProps,
 });
 
 export const useColors = () => {
@@ -18,8 +23,17 @@ export const useColors = () => {
   return Colors[theme];
 };
 
+export const useSpinner = (isVisible: boolean, isCancelable: boolean) => {
+  const {spinner} = React.useContext(ThemeContext);
+  spinner.setIsVisible(isVisible);
+  spinner.setIsCancelable(isCancelable);
+};
+
 const ThemeProvider: React.FC = ({children}) => {
   const [theme, setTheme] = useState('dark' as NonNullable<ColorSchemeName>);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isCancelable, setIsCancelable] = useState(true);
+
   const changeTheme = useCallback((newTheme: NonNullable<ColorSchemeName>) => {
     setTheme(newTheme);
   }, []);
@@ -38,12 +52,23 @@ const ThemeProvider: React.FC = ({children}) => {
     getTheme();
   }, [getTheme]);
   return (
-    <ThemeContext.Provider value={{theme, changeTheme}}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        changeTheme,
+        spinner: {isVisible, setIsVisible, isCancelable, setIsCancelable},
+      }}>
       <StatusBar
         barStyle="light-content"
         backgroundColor={topBarBgColor[theme]}
         translucent={true}
         animated={true}
+      />
+      <Spinner
+        visible={isVisible}
+        textContent="Carregando..."
+        overlayColor={Colors[theme].primary}
+        cancelable={isCancelable}
       />
       {children}
     </ThemeContext.Provider>
