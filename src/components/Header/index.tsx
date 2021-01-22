@@ -1,12 +1,12 @@
 import React from 'react';
-import {Image, StatusBar} from 'react-native';
-import {Text, View} from '../Themed';
+import {Image, StatusBar, View} from 'react-native';
+import {Text} from '../Themed';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import styles from './styles';
 import logoImg from '../../assets/images/smallLogo.png';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
+import {useColors} from '../../contexts/ThemeContext';
 interface Header {
   name?: string;
   back: boolean;
@@ -15,6 +15,7 @@ interface Header {
 
 const Header: React.FC<Header> = ({name, back, drawerButton}) => {
   const navigation = useNavigation();
+  const colors = useColors();
   const handleGoBack = () => {
     if (navigation.canGoBack()) {
       navigation.goBack();
@@ -25,27 +26,20 @@ const Header: React.FC<Header> = ({name, back, drawerButton}) => {
   const handleOpenDrawer = () => {
     navigation.dispatch(DrawerActions.openDrawer());
   };
-
+  console.log(name, back, drawerButton);
   return (
     <View
-      lightColor="#1682C2"
-      darkColor="#1662ff"
       style={
         (styles.header,
         {
           top: StatusBar.currentHeight,
+          backgroundColor: colors.primary,
           marginBottom: StatusBar.currentHeight ? StatusBar.currentHeight : 20,
         })
       }>
-      <View
-        style={styles.logoContainer}
-        lightColor="#1682C2"
-        darkColor="#1662ff">
+      <View style={styles.logoContainer}>
         {drawerButton && (
-          <View
-            lightColor="#1682C2"
-            darkColor="#1662ff"
-            style={styles.drawerButtonContainer}>
+          <View style={styles.drawerButtonContainer}>
             <TouchableOpacity
               style={styles.drawerButton}
               onPress={handleOpenDrawer}>
@@ -54,10 +48,7 @@ const Header: React.FC<Header> = ({name, back, drawerButton}) => {
           </View>
         )}
         {back && (
-          <View
-            lightColor="#1682C2"
-            darkColor="#1662ff"
-            style={styles.backAndTextContainer}>
+          <View style={styles.backAndTextContainer}>
             <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
               <MaterialCommunityIcons
                 name="arrow-left"
@@ -71,9 +62,7 @@ const Header: React.FC<Header> = ({name, back, drawerButton}) => {
         )}
         {!back && name === undefined && (
           <View
-            style={styles.logoContainer}
-            lightColor="#1682C2"
-            darkColor="#1662ff">
+            style={(styles.logoContainer, {backgroundColor: colors.primary})}>
             <Image source={logoImg} style={styles.logoImage} />
           </View>
         )}

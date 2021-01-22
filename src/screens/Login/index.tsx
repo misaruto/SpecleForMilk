@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import {useForm} from 'react-hook-form';
 
@@ -12,8 +12,7 @@ import {ILoginData} from '../../../types';
 import AuthContext from '../../contexts/AuthContext';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
-function Login(a) {
-  console.log('teste', a);
+function Login() {
   const navigation = useNavigation();
   const route = useRoute();
   const {setShowSpinner, logIn, setSigned} = useContext(AuthContext);

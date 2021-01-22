@@ -1,8 +1,8 @@
-import React, { Children } from "react";
-import { ViewProps } from "react-native";
+import React from 'react';
+import {ViewProps} from 'react-native';
 
-import { View } from "../Themed";
-import styles from "./styles";
+import {View} from '../Themed';
+import styles from './styles';
 
 const Container: React.FC<ViewProps> = (props) => {
   return (

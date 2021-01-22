@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {ColorSchemeName} from 'react-native';
+import Colors from '../constants/Colors';
 
 // The useColorScheme value is always either light or dark, but the built-in
 // type suggests that it can be null. This will not happen in practice, so this
@@ -11,6 +12,11 @@ export const ThemeContext = React.createContext({
   theme: 'light' as NonNullable<ColorSchemeName>,
   changeTheme(_newTheme: NonNullable<ColorSchemeName>) {},
 });
+
+export const useColors = () => {
+  const {theme} = React.useContext(ThemeContext);
+  return Colors[theme];
+};
 
 const ThemeProvider: React.FC = ({children}) => {
   const [theme, setTheme] = useState('dark' as NonNullable<ColorSchemeName>);

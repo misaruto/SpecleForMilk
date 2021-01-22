@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {View, Text, Label} from '../Themed';
+import {View, Text} from '../Themed';
 import styles from './styles';
 export interface ILeituraItem {
   nome: string;
@@ -8,20 +8,20 @@ export interface ILeituraItem {
   valor: string;
 }
 
-export interface IUser {
+export interface ILeitura {
   leitura: ILeituraItem;
 }
-const LeituraItem: React.FC<IUser> = ({leitura}) => {
+const LeituraItem: React.FC<ILeitura> = ({leitura}) => {
   return (
     <View style={styles.container}>
-      <Label style={styles.leituraNomeContainer}>
-        <Text style={styles.leituraNome}>{leitura.nome}</Text>
-      </Label>
       <View style={styles.leituraValorContainer}>
         <Text style={styles.valor}>
           {leitura.valor}
           <Text style={styles.unidade}>{leitura.unidade}</Text>
         </Text>
+      </View>
+      <View style={styles.leituraNomeContainer}>
+        <Text style={styles.leituraNome}>{leitura.nome}</Text>
       </View>
     </View>
   );

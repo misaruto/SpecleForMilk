@@ -1,6 +1,6 @@
-import React from "react";
-import { Text, TouchableOpacity, View } from "../../components/Themed";
-import styles from "./styles";
+import React from 'react';
+import {Text, TouchableOpacity, View} from '../../components/Themed';
+import styles from './styles';
 
 export interface IHistoryItem {
   id: string;
@@ -11,7 +11,7 @@ export interface IHistory {
   history: IHistoryItem;
 }
 
-const HistoryItem: React.FC<IHistory> = ({ history }, ...props) => {
+const HistoryItem: React.FC<IHistory> = ({history}, ...props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.titleContainer} darkColor="#225B7B">

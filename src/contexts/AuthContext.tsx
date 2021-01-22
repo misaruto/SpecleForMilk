@@ -7,51 +7,36 @@ import React, {
 } from 'react';
 import {AxiosResponse} from 'axios';
 import api from '../services/api';
-import {ILoginData, IUser, ILogoutResponse, IMetaInfo} from '../../types';
+import {
+  IUser,
+  ILogoutResponse,
+  IUserInfo,
+  ILoginData,
+  IAuthResponse,
+} from '../../types';
 import AsyncStorage from '@react-native-community/async-storage';
-import Spinner from 'react-native-loading-spinner-overlay';
 import {Alert} from 'react-native';
+import metaInfoParser from '../utils/metaInfoParser';
+
 interface AuthContextData {
   loading: boolean;
   signed: boolean;
   token: MutableRefObject<string>;
   user: IUser;
-  showSpinner: boolean;
-  setShowSpinner(_show: boolean): void;
   setSigned(_logged: boolean): void;
-  logIn(_data: ILoginData): Promise<boolean>;
   logOut(): Promise<void>;
   getLoggedIn(): Promise<void>;
-}
-
-export interface IAuthResponse {
-  ok: boolean;
-  err?: string;
-  cookie?: any;
-}
-export interface IUserInfo {
-  ok: boolean;
-  data: IUser;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({children}) => {
   const [loading, setLoading] = useState(true);
-  const [showSpinner, setShowSpinner] = useState(false);
+
   const [user, setUser] = useState<IUser>({} as IUser);
   const [signed, setSigned] = useState(false);
   const token = useRef('');
 
-  const metaInfoParser = (toConvert: string): IMetaInfo => {
-    let result: IMetaInfo = {} as IMetaInfo;
-    let a = toConvert.replace("'", '').replace("'", '').split(',');
-    a.map((b) => {
-      let c = b.split(':');
-      result = {...result, [c[0]]: c[1]};
-    });
-    return result;
-  };
   const getUserInfo = useCallback(async (cookie: string) => {
     const loggedUser: IUserInfo = await api
       .get('users/getUserInfo', {
@@ -71,41 +56,6 @@ export const AuthProvider: React.FC = ({children}) => {
     return loggedUser.data;
   }, []);
 
-  const logIn = async (data: ILoginData): Promise<boolean> => {
-    changeSpinner(true);
-    const result = await api
-      .post('users/authenticateUser', {
-        email: data.login,
-        password: data.password,
-      })
-      .then(async (response: AxiosResponse<IAuthResponse>) => {
-        if (response.data.ok) {
-          token.current = response.data.cookie;
-          await AsyncStorage.setItem('@RNAuth:token', response.data.cookie);
-
-          let loggedUser = await getUserInfo(token.current);
-          if (typeof loggedUser.metaInfo === 'string') {
-            loggedUser.metaInfo = metaInfoParser(loggedUser.metaInfo);
-          }
-          setUser(loggedUser);
-          await AsyncStorage.setItem(
-            '@RNAuth:user',
-            JSON.stringify(loggedUser),
-          );
-          return true;
-        } else {
-          return false;
-        }
-      })
-      .catch(() => {
-        changeSpinner(false);
-        Alert.alert(
-          'Erro ao fazer login, verifique sua conexão com a internet',
-        );
-        return false;
-      });
-    return result;
-  };
   async function logOut() {
     await api
       .get('users/logout', {
@@ -158,10 +108,6 @@ export const AuthProvider: React.FC = ({children}) => {
     setLoading(false);
   }, [token, getUserInfo]);
 
-  const changeSpinner = useCallback((show: boolean) => {
-    setShowSpinner(show);
-  }, []);
-
   return (
     <AuthContext.Provider
       value={{
@@ -171,20 +117,8 @@ export const AuthProvider: React.FC = ({children}) => {
         token,
         logOut,
         getLoggedIn,
-        setShowSpinner,
-        showSpinner,
-        logIn,
         setSigned,
       }}>
-      <Spinner
-        visible={showSpinner}
-        color="#1682C2"
-        size="large"
-        animation="slide"
-        overlayColor="#000000aa"
-        textContent="Carregando..."
-        textStyle={{color: '#fff'}}
-      />
       {children}
     </AuthContext.Provider>
   );

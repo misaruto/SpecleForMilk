@@ -1,40 +1,49 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    borderTopWidth: 1,
-
-    borderColor: "gray",
-    maxHeight: 70,
-    padding: 6,
+    flexDirection: 'column',
+    height: 150,
+    minWidth: '42%',
+    width: '42%',
+    borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+    borderColor: 'gray',
+    margin: 4,
+    padding: 2,
   },
   leituraNomeContainer: {
-    width: "28%",
-    height: 34,
+    flex: 1,
+    width: '100%',
     borderRadius: 10,
-    flexDirection: "row",
-    textAlign: "center",
+    flexDirection: 'column',
+    bottom: 10,
+    justifyContent: 'flex-end',
+    height: '30%',
   },
   leituraNome: {
-    flex: 1,
-    color: "#fff",
-    textAlign: "center",
-    alignSelf: "center",
+    height: 30,
+    color: '#fff',
+    textAlign: 'center',
     fontSize: 22,
-    fontWeight: "500",
+    fontWeight: '500',
   },
   leituraValorContainer: {
-    width: "72%",
+    width: '100%',
+    height: '70%',
   },
   valor: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 40,
   },
   unidade: {
+    textAlign: 'right',
+    right: 4,
     fontSize: 20,
-    color: "#aaa",
+    color: '#aaa',
   },
 });
 

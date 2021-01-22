@@ -1,5 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {Text as DefaultText, View as DefaultView} from 'react-native';
 import {
   TouchableOpacity as DefaultTouchableOpacity,

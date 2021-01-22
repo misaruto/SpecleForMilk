@@ -53,3 +53,13 @@ export interface ILoginData extends FormData {
 export interface ILogoutResponse {
   ok: boolean;
 }
+
+export interface IAuthResponse {
+  ok: boolean;
+  err?: string;
+  cookie?: any;
+}
+export interface IUserInfo {
+  ok: boolean;
+  data: IUser;
+}

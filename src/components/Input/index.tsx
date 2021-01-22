@@ -2,7 +2,7 @@ import React from 'react';
 
 import {TextInput, TextInputProps, Text} from 'react-native';
 import Colors from '../../constants/Colors';
-import {ThemeContext} from '../../contexts/ThemeContext';
+import {useColors} from '../../contexts/ThemeContext';
 import {View} from '../Themed';
 import styles from './styles';
 export interface InputErrorProps {
@@ -16,26 +16,23 @@ interface Props extends TextInputProps {
 }
 
 const Input: React.FC<Props> = ({name, placeHolder, error, ...rest}) => {
-  const {theme} = React.useContext(ThemeContext);
+  const colors = useColors();
   return (
     <View style={styles.inputContainer}>
       <TextInput
         style={
           (styles.input,
           {
-            backgroundColor: Colors[theme].background,
-            borderColor: error.isError
-              ? Colors[theme].textError
-              : Colors[theme].text,
+            backgroundColor: colors.background,
+            borderColor: error.isError ? colors.textError : colors.text,
             borderBottomWidth: 1,
             fontSize: 22,
             alignSelf: 'center',
             width: '86%',
-            color: Colors[theme].text,
+            color: colors.text,
           })
         }
-        keyboardAppearance={theme}
-        placeholderTextColor={Colors[theme].text}
+        placeholderTextColor={colors.text}
         placeholder={placeHolder}
         {...rest}
       />
@@ -49,7 +46,7 @@ const Input: React.FC<Props> = ({name, placeHolder, error, ...rest}) => {
               textAlign: 'center',
               width: '86%',
               height: 28,
-              color: Colors[theme].textError,
+              color: colors.textError,
             })
           }>
           {error.msg}

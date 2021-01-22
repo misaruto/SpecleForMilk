@@ -1,7 +1,5 @@
-import React, {useState} from 'react';
-import {Text, View} from '../../components/Themed';
-
-import Header from '../../components/Header';
+import React from 'react';
+import {View} from '../../components/Themed';
 
 import styles from './styles';
 

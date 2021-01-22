@@ -42,28 +42,24 @@ const styles = StyleSheet.create({
   },
 
   backButton: {
-    flex: 1,
     textAlign: 'center',
     justifyContent: 'center',
     width: 60,
     height: 52,
     left: 4,
+    zIndex: 2,
   },
 
   title: {
-    flex: 1,
+    width: '100%',
+    position: 'absolute',
+    textAlign: 'center',
     alignSelf: 'center',
     justifyContent: 'center',
     fontSize: 22,
     fontWeight: 'bold',
+    color: '#fff',
   },
-
-  // text: {
-  //   flex: 1,
-  //   textAlign: 'center',
-  //   fontSize: 18,
-  //   fontWeight: '500',
-  // },
 });
 
 export default styles;

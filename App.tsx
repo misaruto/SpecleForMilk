@@ -16,9 +16,9 @@ import ThemeProvider from './src/contexts/ThemeContext';
 import useCachedResources from './src/hooks/useCachedResources';
 import {AuthProvider} from './src/contexts/AuthContext';
 import {ActivityIndicator} from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 const App = () => {
   const isLoadingComplete = useCachedResources();
-
   if (!isLoadingComplete) {
     return <ActivityIndicator />;
   } else {

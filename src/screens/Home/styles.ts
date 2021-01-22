@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
   ultimaLeituraTitle: {
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
     textAlign: 'center',
     fontSize: 30,

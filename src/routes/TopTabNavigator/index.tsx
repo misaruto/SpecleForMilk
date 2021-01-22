@@ -7,14 +7,14 @@ import {TopTabParamList, NewNavigatorParamList} from '../../../types';
 import NewRead from '../../screens/NewRead';
 import Home from '../../screens/Home';
 import History from '../../screens/History';
-import {ThemeContext} from '../../contexts/ThemeContext';
-import Colors from '../../constants/Colors';
+import {useColors} from '../../contexts/ThemeContext';
 import AuthContext from '../../contexts/AuthContext';
 import {useNavigation} from '@react-navigation/native';
+
 const Tab = createMaterialTopTabNavigator<TopTabParamList>();
 
 export default function TopTabNavigator() {
-  const {theme} = React.useContext(ThemeContext);
+  const colors = useColors();
   const {setShowSpinner} = React.useContext(AuthContext);
   const navigation = useNavigation();
   React.useEffect(() => {
@@ -26,18 +26,18 @@ export default function TopTabNavigator() {
     <Tab.Navigator
       initialRouteName="Home"
       tabBarOptions={{
-        activeTintColor: theme === 'dark' ? '#1662ff' : '#1682C2',
-        inactiveTintColor: theme === 'dark' ? 'gray' : '#212121',
+        activeTintColor: colors.activeTintColor,
+        inactiveTintColor: colors.inactiveTintColor,
         showIcon: false,
-        pressColor: Colors[theme].tabBarPressColor,
+        pressColor: colors.tabBarPressColor,
         indicatorStyle: {
-          backgroundColor: Colors[theme].tabBarPressColor,
+          backgroundColor: colors.tabBarPressColor,
         },
         indicatorContainerStyle: {
           flex: 1,
         },
         contentContainerStyle: {
-          backgroundColor: Colors[theme].background,
+          backgroundColor: colors.background,
           textAlign: 'center',
         },
         iconStyle: {

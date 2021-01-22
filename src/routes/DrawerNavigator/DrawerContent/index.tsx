@@ -63,7 +63,10 @@ function DrawerContent(props: DrawerContentComponentProps) {
             <View style={{flexDirection: 'row', marginTop: 15}}>
               <Avatar.Image
                 source={{
-                  uri: user.profileImage,
+                  uri: user.profileImage.replace(
+                    'localhost:8080',
+                    '73870f262f05.ngrok.io',
+                  ),
                 }}
               />
               <View style={{flexDirection: 'column', marginLeft: 15}}>
