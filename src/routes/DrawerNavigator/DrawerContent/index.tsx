@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import {
   DrawerContentScrollView,
@@ -22,14 +22,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import AsyncStorage from '@react-native-community/async-storage';
-import {ThemeContext} from '../../../contexts/ThemeContext';
-import AuthContext from '../../../contexts/AuthContext';
+import {useSpinner, useTheme} from '../../../contexts/ThemeContext';
+import {useLogout, useUser} from '../../../contexts/AuthContext';
 
 function DrawerContent(props: DrawerContentComponentProps) {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const {changeTheme, theme} = useContext(ThemeContext);
-  const {logOut, setShowSpinner, user} = useContext(AuthContext);
-
+  const {changeTheme, theme} = useTheme();
+  const logout = useLogout();
+  const user = useUser();
+  const spinner = useSpinner();
   const updateSwitchThemes = useCallback(async () => {
     setIsDarkTheme(theme === 'dark');
   }, [theme]);
@@ -52,7 +53,6 @@ function DrawerContent(props: DrawerContentComponentProps) {
 
   useEffect(() => {
     updateSwitchThemes();
-    console.log(user);
   }, [updateSwitchThemes, user]);
 
   return (
@@ -124,8 +124,9 @@ function DrawerContent(props: DrawerContentComponentProps) {
             />
           )}
           onPress={() => {
-            setShowSpinner(true);
-            logOut();
+            spinner.setIsVisible(true);
+            spinner.setIsCancelable(true);
+            logout();
           }}
         />
       </Drawer.Section>

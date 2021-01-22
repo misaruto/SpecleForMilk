@@ -7,8 +7,6 @@ import Header from '../../components/Header';
 
 function DrawerNavigator() {
   const Drawer = createDrawerNavigator();
-  // const {changeSpinner} = useContext(AuthContext);
-  // changeSpinner(false);
 
   return (
     <Drawer.Navigator

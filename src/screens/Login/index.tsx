@@ -69,8 +69,6 @@ function Login() {
     if (navigation.isFocused()) {
       spinner.setIsVisible(false);
     }
-    console.log('route', route);
-    console.log('navigation', navigation);
   }, [navigation, route, spinner]);
 
   return (

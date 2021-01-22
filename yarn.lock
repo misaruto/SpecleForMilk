@@ -1354,10 +1354,17 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
-"@types/react-native@*", "@types/react-native@^0.63.2":
+"@types/react-native@*":
   version "0.63.42"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.42.tgz#d0baf405edc646d15d5a7f8e67983b8701c1ea2a"
   integrity sha512-zb7m2Uwfz6MQh/Nq1DDAmzTRO+EQWV7ZyRl9ZZ2QLd1480xjRjPDQqRkp4vuk3gyRlQtwi0v9I3tOh2IxHFujw==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-native@^0.63.46":
+  version "0.63.46"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.46.tgz#942df5af29046c6f22227495e00d5297cc1cea73"
+  integrity sha512-SnBnWRErpISIaWk4K8kAfIKqSPdZ8fdH6HIw7kVdz6jMl/5FAf6iXeIwRfVZg1bCMh+ymNPCpSENNNEVprxj/w==
   dependencies:
     "@types/react" "*"
 
@@ -5920,10 +5927,10 @@ react-native-loading-spinner-overlay@^2.0.0:
   dependencies:
     prop-types "^15.6.2"
 
-react-native-paper@^4.4.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-4.6.0.tgz#3ac6abb0dbca6a1c93e4b2eb8f128836e0f19a5a"
-  integrity sha512-ETrMOgL8Ch/DmDl8dsGf2a9j5TBpcsrQadzHQJBx2MYBtmxCwAhZx7JOYCnq0euQKRa0PVzzZ41anSDohiQmGw==
+react-native-paper@^4.7.1:
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-4.7.1.tgz#9f22116d39e4a129be9fd4c8d7342d0f6a20245c"
+  integrity sha512-37xJgCcTAELFBvE7+l9xcMW3wh2/dvrOs7TeRLIpnHsjfa+m4h+vvzb8q0YIUJOKtHcJ4cY77NHUr6JMGzNHFw==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.5"
     color "^3.1.2"

@@ -23,6 +23,10 @@ export const useColors = () => {
   return Colors[theme];
 };
 
+export const useTheme = () => {
+  const {theme, changeTheme} = React.useContext(ThemeContext);
+  return {theme, changeTheme, colors: Colors[theme]};
+};
 export const useSpinner = () => {
   const {spinner} = React.useContext(ThemeContext);
 
