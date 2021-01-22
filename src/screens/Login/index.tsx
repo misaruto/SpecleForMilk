@@ -9,14 +9,18 @@ import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Link from '../../components/Link';
 import {ILoginData} from '../../../types';
-import AuthContext from '../../contexts/AuthContext';
+import AuthContext, {useUserAuthentication} from '../../contexts/AuthContext';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {useSpinner} from '../../contexts/ThemeContext';
 
 function Login() {
   const navigation = useNavigation();
   const route = useRoute();
-  const {setShowSpinner, logIn, setSigned} = useContext(AuthContext);
+  const handleAuthentication = useUserAuthentication();
+  const {setSigned} = useContext(AuthContext);
+  const spinner = useSpinner();
   const {register, handleSubmit, setValue} = useForm();
+
   const [loginError, setLoginError] = useState<InputErrorProps>({
     isError: false,
     msg: undefined,
@@ -28,15 +32,21 @@ function Login() {
 
   const handleSubmitForm = async (data: ILoginData) => {
     if (data.login && data.password) {
-      setShowSpinner(true);
-      const result = await logIn(data);
-      if (result) {
-        setSigned(true);
-      } else {
-        await setShowSpinner(false);
-        setLoginError({isError: true, msg: undefined});
-        setPasswdError({isError: true, msg: 'Usuário ou senha incorretos'});
-      }
+      spinner.setIsVisible(true);
+      spinner.setIsCancelable(true);
+      await handleAuthentication(data).then((result) => {
+        if (result) {
+          setSigned(true);
+        } else {
+          spinner.setIsVisible(false);
+          spinner.setIsCancelable(true);
+          setLoginError({isError: true, msg: undefined});
+          setPasswdError({
+            isError: true,
+            msg: 'Usuário ou senha incorretos',
+          });
+        }
+      });
     } else {
       if (!data.login) {
         setLoginError({isError: true, msg: 'Campo obrigatório'});
@@ -57,11 +67,11 @@ function Login() {
 
   useEffect(() => {
     if (navigation.isFocused()) {
-      setShowSpinner(false);
+      spinner.setIsVisible(false);
     }
     console.log('route', route);
     console.log('navigation', navigation);
-  }, [navigation, setShowSpinner, route]);
+  }, [navigation, route, spinner]);
 
   return (
     <View style={styles.container}>

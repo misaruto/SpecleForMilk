@@ -23,10 +23,10 @@ export const useColors = () => {
   return Colors[theme];
 };
 
-export const useSpinner = (isVisible: boolean, isCancelable: boolean) => {
+export const useSpinner = () => {
   const {spinner} = React.useContext(ThemeContext);
-  spinner.setIsVisible(isVisible);
-  spinner.setIsCancelable(isCancelable);
+
+  return spinner;
 };
 
 const ThemeProvider: React.FC = ({children}) => {

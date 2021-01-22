@@ -7,21 +7,20 @@ import {TopTabParamList, NewNavigatorParamList} from '../../../types';
 import NewRead from '../../screens/NewRead';
 import Home from '../../screens/Home';
 import History from '../../screens/History';
-import {useColors} from '../../contexts/ThemeContext';
-import AuthContext from '../../contexts/AuthContext';
+import {useColors, useSpinner} from '../../contexts/ThemeContext';
 import {useNavigation} from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator<TopTabParamList>();
 
 export default function TopTabNavigator() {
   const colors = useColors();
-  const {setShowSpinner} = React.useContext(AuthContext);
+  const spinner = useSpinner();
   const navigation = useNavigation();
   React.useEffect(() => {
     if (navigation.isFocused()) {
-      setShowSpinner(false);
+      spinner.setIsVisible(false);
     }
-  }, [navigation, setShowSpinner]);
+  }, [navigation, spinner]);
   return (
     <Tab.Navigator
       initialRouteName="Home"
