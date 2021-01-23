@@ -18,7 +18,8 @@ function Login() {
   const route = useRoute();
   const handleAuthentication = useUserAuthentication();
   const {setSigned} = useContext(AuthContext);
-  const spinner = useSpinner();
+  const {setSpinner} = useSpinner();
+
   const {register, handleSubmit, setValue} = useForm();
 
   const [loginError, setLoginError] = useState<InputErrorProps>({
@@ -32,14 +33,12 @@ function Login() {
 
   const handleSubmitForm = async (data: ILoginData) => {
     if (data.login && data.password) {
-      spinner.setIsVisible(true);
-      spinner.setIsCancelable(false);
+      setSpinner({isVisible: true, isCancelable: false});
       await handleAuthentication(data).then((result) => {
         if (result) {
           setSigned(true);
         } else {
-          spinner.setIsVisible(false);
-          spinner.setIsCancelable(true);
+          setSpinner({isVisible: false, isCancelable: true});
           setLoginError({isError: true, msg: undefined});
           setPasswdError({
             isError: true,
@@ -67,9 +66,9 @@ function Login() {
 
   useEffect(() => {
     if (navigation.isFocused()) {
-      spinner.setIsVisible(false);
+      setSpinner({isVisible: false, isCancelable: true});
     }
-  }, [navigation, route, spinner]);
+  }, [navigation, route, setSpinner]);
 
   return (
     <View style={styles.container}>

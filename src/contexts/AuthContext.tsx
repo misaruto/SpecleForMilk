@@ -70,6 +70,7 @@ export const AuthProvider: React.FC = ({children}) => {
       .then(async (response: AxiosResponse<IAuthResponse>) => {
         /*response, if the user passed the correct credentials response.data.ok is true,
       if not response.data.ok is false*/
+        console.log(response);
         if (response.data.ok) {
           /*This line pass the user access token from api
           (where it is named cookie) for the api to default headers
@@ -87,7 +88,8 @@ export const AuthProvider: React.FC = ({children}) => {
           return false;
         }
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         //Alerta o usuario em caso de não conseguir fazer a requisição http para api
         Alert.alert(
           'Erro ao fazer login, verifique sua conexão com a internet',

@@ -7,15 +7,14 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 export interface ISpinnerProps {
   isVisible: boolean;
-  setIsVisible(_visible: boolean): void;
   isCancelable: boolean;
-  setIsCancelable(_cancelable: boolean): void;
 }
 
 export const ThemeContext = React.createContext({
   theme: 'light' as NonNullable<ColorSchemeName>,
   changeTheme(_newTheme: NonNullable<ColorSchemeName>) {},
   spinner: {} as ISpinnerProps,
+  setSpinner(_newSpinnerState: ISpinnerProps) {},
 });
 
 export const useColors = () => {
@@ -28,16 +27,17 @@ export const useTheme = () => {
   return {theme, changeTheme, colors: Colors[theme]};
 };
 export const useSpinner = () => {
-  const {spinner} = React.useContext(ThemeContext);
+  const {spinner, setSpinner} = React.useContext(ThemeContext);
 
-  return spinner;
+  return {spinner, setSpinner};
 };
 
 const ThemeProvider: React.FC = ({children}) => {
   const [theme, setTheme] = useState('dark' as NonNullable<ColorSchemeName>);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isCancelable, setIsCancelable] = useState(true);
-
+  const [spinner, setSpinner] = useState({
+    isVisible: false,
+    isCancelable: true,
+  });
   const changeTheme = useCallback((newTheme: NonNullable<ColorSchemeName>) => {
     setTheme(newTheme);
   }, []);
@@ -60,7 +60,8 @@ const ThemeProvider: React.FC = ({children}) => {
       value={{
         theme,
         changeTheme,
-        spinner: {isVisible, setIsVisible, isCancelable, setIsCancelable},
+        spinner,
+        setSpinner,
       }}>
       <StatusBar
         barStyle="light-content"
@@ -69,12 +70,12 @@ const ThemeProvider: React.FC = ({children}) => {
         animated={true}
       />
       <Spinner
-        visible={isVisible}
+        visible={spinner.isVisible}
         textContent="Carregando..."
         textStyle={{color: Colors[theme].text}}
         color={Colors[theme].primary}
         overlayColor={Colors[theme].background + 'aa'}
-        cancelable={isCancelable}
+        cancelable={spinner.isCancelable}
       />
       {children}
     </ThemeContext.Provider>

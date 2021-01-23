@@ -30,7 +30,7 @@ function DrawerContent(props: DrawerContentComponentProps) {
   const {changeTheme, theme} = useTheme();
   const logout = useLogout();
   const user = useUser();
-  const spinner = useSpinner();
+  const {setSpinner} = useSpinner();
   const updateSwitchThemes = useCallback(async () => {
     setIsDarkTheme(theme === 'dark');
   }, [theme]);
@@ -63,10 +63,12 @@ function DrawerContent(props: DrawerContentComponentProps) {
             <View style={{flexDirection: 'row', marginTop: 15}}>
               <Avatar.Image
                 source={{
-                  uri: user.profileImage.replace(
-                    'localhost:8080',
-                    '73870f262f05.ngrok.io',
-                  ),
+                  uri:
+                    user.profileImage &&
+                    user.profileImage.replace(
+                      'localhost:8080',
+                      '73870f262f05.ngrok.io',
+                    ),
                 }}
               />
               <View style={{flexDirection: 'column', marginLeft: 15}}>
@@ -124,8 +126,7 @@ function DrawerContent(props: DrawerContentComponentProps) {
             />
           )}
           onPress={() => {
-            spinner.setIsVisible(true);
-            spinner.setIsCancelable(true);
+            setSpinner({isVisible: true, isCancelable: false});
             logout();
           }}
         />

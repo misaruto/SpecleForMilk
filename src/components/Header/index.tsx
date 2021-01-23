@@ -26,7 +26,6 @@ const Header: React.FC<Header> = ({name, back, drawerButton}) => {
   const handleOpenDrawer = () => {
     navigation.dispatch(DrawerActions.openDrawer());
   };
-  console.log(name, back, drawerButton);
   return (
     <View
       style={

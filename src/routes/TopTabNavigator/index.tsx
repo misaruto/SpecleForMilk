@@ -14,13 +14,13 @@ const Tab = createMaterialTopTabNavigator<TopTabParamList>();
 
 export default function TopTabNavigator() {
   const colors = useColors();
-  const spinner = useSpinner();
+  const {setSpinner} = useSpinner();
   const navigation = useNavigation();
   React.useEffect(() => {
     if (navigation.isFocused()) {
-      spinner.setIsVisible(false);
+      setSpinner({isVisible: false, isCancelable: true});
     }
-  }, [navigation, spinner]);
+  }, [navigation, setSpinner]);
   return (
     <Tab.Navigator
       initialRouteName="Home"
