@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "ENVFILE=.env.dev react-native run-android ",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -21,12 +21,14 @@
     "react-native": "0.63.3",
     "react-native-appearance": "^0.3.4",
     "react-native-ble-manager": "^7.4.1",
+    "react-native-config": "^1.4.2",
     "react-native-loading-spinner-overlay": "^2.0.0",
     "react-native-paper": "^4.7.1",
     "react-native-splash-screen": "^3.2.0",
     "react-native-tab-view": "^2.15.2",
     "react-native-tcp-socket": "^4.5.5",
-    "react-native-vector-icons": "^7.1.0"
+    "react-native-vector-icons": "^7.1.0",
+    "react-native-windows": "^0.63.18"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

@@ -63,3 +63,5 @@ export interface IUserInfo {
   ok: boolean;
   data: IUser;
 }
+
+export deaclare

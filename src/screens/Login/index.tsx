@@ -33,7 +33,7 @@ function Login() {
   const handleSubmitForm = async (data: ILoginData) => {
     if (data.login && data.password) {
       spinner.setIsVisible(true);
-      spinner.setIsCancelable(true);
+      spinner.setIsCancelable(false);
       await handleAuthentication(data).then((result) => {
         if (result) {
           setSigned(true);

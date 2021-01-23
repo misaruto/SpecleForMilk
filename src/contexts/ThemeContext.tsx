@@ -71,7 +71,9 @@ const ThemeProvider: React.FC = ({children}) => {
       <Spinner
         visible={isVisible}
         textContent="Carregando..."
-        overlayColor={Colors[theme].primary}
+        textStyle={{color: Colors[theme].text}}
+        color={Colors[theme].primary}
+        overlayColor={Colors[theme].background + 'aa'}
         cancelable={isCancelable}
       />
       {children}
