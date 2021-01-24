@@ -3,20 +3,27 @@ const linking = {
   prefixes: ['speckleformilk://'],
   config: {
     screens: {
+      UnAuthStack: {
+        path: 'UnAuthStack/',
+        screens: {
+          Login: 'Login',
+          RecoveryPassword: 'Recovery',
+        },
+      },
       Root: {
-        path: 'Root',
+        path: 'Root/',
         screens: {
           App: {
-            path: 'App',
+            path: 'App/',
             screens: {
               DrawerNavigator: {
-                path: 'DrawerNavigator',
+                path: 'DrawerNavigator/',
                 screens: {
                   TopTabNavigator: {
-                    path: 'TopTabNavigator',
-                    initialRouteName: 'History',
+                    path: 'TopTabNavigator/',
+                    initialRouteName: 'History/',
                     screens: {
-                      NewNavigator: 'NewNavigator',
+                      NewNavigator: 'NewNavigator/',
                     },
                   },
                 },

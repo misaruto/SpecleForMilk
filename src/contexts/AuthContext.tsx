@@ -55,6 +55,11 @@ export const useUser = () => {
   const {user} = useContext(AuthContext);
   return user;
 };
+
+export const useAuht = () => {
+  const auth = useContext(AuthContext);
+  return {auth};
+};
 export const AuthProvider: React.FC = ({children}) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<IUser>({} as IUser);

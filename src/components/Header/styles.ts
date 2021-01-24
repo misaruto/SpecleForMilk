@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 52,
     left: 4,
+    zIndex: 3,
   },
 
   backButton: {
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 52,
     left: 4,
-    zIndex: 2,
+    zIndex: 3,
   },
 
   title: {

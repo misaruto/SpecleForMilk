@@ -1,16 +1,16 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import Button from '../../components/Button';
 import Input, {InputErrorProps} from '../../components/Input';
-import {Text, View} from '../../components/Themed';
-import AuthContext from '../../contexts/AuthContext';
+import {View} from '../../components/Themed';
+import {useSpinner} from '../../contexts/ThemeContext';
 import api from '../../services/api';
 import styles from './styles';
 
 function RecoveryPassword() {
   const navigation = useNavigation();
-  const {setShowSpinner} = useContext(AuthContext);
+  const {setSpinner} = useSpinner();
   const {register, handleSubmit, setValue} = useForm();
   const [emailError, setEmailError] = useState<InputErrorProps>({
     isError: false,
@@ -19,13 +19,13 @@ function RecoveryPassword() {
 
   const handleSubmitForm = async (data: FormData) => {
     if (data.login && data.password) {
-      setShowSpinner(true);
+      setSpinner({isVisible: true, isCancelable: false});
       const result = await api.post('users/changeUserPassword', {
         email: data.email,
       });
       if (result) {
       } else {
-        await setShowSpinner(false);
+        setSpinner({isVisible: false, isCancelable: true});
 
         setEmailError({isError: true, msg: 'Email inválido'});
       }
@@ -42,9 +42,9 @@ function RecoveryPassword() {
 
   useEffect(() => {
     if (navigation.isFocused()) {
-      setShowSpinner(false);
+      setSpinner({isVisible: false, isCancelable: true});
     }
-  }, [navigation, setShowSpinner]);
+  }, [navigation, setSpinner]);
   return (
     <View style={styles.container}>
       <View style={styles.formLoginContainer}>
