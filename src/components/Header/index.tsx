@@ -33,7 +33,6 @@ const Header: React.FC<Header> = ({name, back, drawerButton}) => {
         {
           top: StatusBar.currentHeight,
           backgroundColor: colors.primary,
-          marginBottom: StatusBar.currentHeight ? StatusBar.currentHeight : 20,
         })
       }>
       <View style={styles.logoContainer}>
@@ -48,15 +47,21 @@ const Header: React.FC<Header> = ({name, back, drawerButton}) => {
         )}
         {back && (
           <View style={styles.backAndTextContainer}>
-            <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
-              <MaterialCommunityIcons
-                name="arrow-left"
-                size={30}
-                color="#fff"
-              />
-            </TouchableOpacity>
+            <View style={styles.backButtonContainer}>
+              <TouchableOpacity
+                style={styles.backButton}
+                onPress={handleGoBack}>
+                <MaterialCommunityIcons
+                  name="arrow-left-thick"
+                  size={30}
+                  color="#fff"
+                />
+              </TouchableOpacity>
+            </View>
 
-            <Text style={styles.title}>{name}</Text>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>{name}</Text>
+            </View>
           </View>
         )}
         {!back && name === undefined && (
