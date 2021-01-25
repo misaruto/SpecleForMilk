@@ -11,12 +11,15 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import metaInfoParser from '../utils/metaInfoParser';
 import {Alert} from 'react-native';
-
+interface IAuthenticationReturn {
+  ok: boolean;
+  msg?: string;
+}
 interface AuthContextData {
   loading: boolean;
   signed: boolean;
   user: IUser;
-  handleAuthentication(data: ILoginData): Promise<boolean>;
+  handleAuthentication(data: ILoginData): Promise<IAuthenticationReturn>;
   handleLogout(): void;
   setUser(_newUser: IUser): void;
   setSigned(_signed: boolean): void;
@@ -65,7 +68,9 @@ export const AuthProvider: React.FC = ({children}) => {
   const [user, setUser] = useState<IUser>({} as IUser);
   const [signed, setSigned] = useState(false);
 
-  const handleAuthentication = async (data: ILoginData): Promise<boolean> => {
+  const handleAuthentication = async (
+    data: ILoginData,
+  ): Promise<IAuthenticationReturn> => {
     //Made a request to api passing the user credential
     const result = await api
       .post('users/authenticateUser', {
@@ -100,9 +105,9 @@ export const AuthProvider: React.FC = ({children}) => {
               reason,
             };
           });
-          return true;
+          return {ok: true};
         } else {
-          return false;
+          return {ok: false, msg: 'Usuário ou senha incorretos'};
         }
       })
       .catch((e) => {
@@ -113,7 +118,7 @@ export const AuthProvider: React.FC = ({children}) => {
           'Erro ao fazer login, verifique sua conexão com a internet',
         );
 
-        return false;
+        return {ok: false, msg: 'Verifique a conexão com internet'};
       });
     return result;
   };
