@@ -29,12 +29,7 @@ export default function TopTabNavigator() {
         inactiveTintColor: colors.inactiveTintColor,
         showIcon: false,
         pressColor: colors.tabBarPressColor,
-        indicatorStyle: {
-          backgroundColor: colors.tabBarPressColor,
-        },
-        indicatorContainerStyle: {
-          flex: 1,
-        },
+        indicatorStyle: {backgroundColor: '#fff'},
         contentContainerStyle: {
           backgroundColor: colors.background,
           textAlign: 'center',

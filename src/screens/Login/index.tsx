@@ -4,7 +4,7 @@ import {useForm} from 'react-hook-form';
 
 import styles from './styles';
 import Input, {InputErrorProps} from '../../components/Input';
-import {View} from '../../components/Themed';
+import {Text, View} from '../../components/Themed';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Link from '../../components/Link';
@@ -102,9 +102,11 @@ function Login() {
           }}
           error={passwdError}
         />
-        <Button label="Login" onPress={handleSubmit(handleSubmitForm)}>
-          <Icon name="login" size={30} color="white" />
-        </Button>
+        <Button
+          label="Login"
+          icon={<Icon name="login" size={30} color="white" />}
+          onPress={handleSubmit(handleSubmitForm)}
+        />
 
         <Link label="Recuperar a senha" onPress={handleNavigateRecovery} />
         <Link label={'Não é cliente? \nveja nossas ofertas'} />

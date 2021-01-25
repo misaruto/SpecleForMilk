@@ -17,6 +17,8 @@ export default {
     textError: '#f00',
     inactiveTintColor: '#212121',
     activeTintColor: '#1682C2',
+    buttonDefault: '#1377B0',
+    defaultButtonLabel: '#fff',
   },
   dark: {
     primary: '#1662ff',
@@ -33,5 +35,7 @@ export default {
     textError: '#f00',
     inactiveTintColor: 'gray',
     activeTintColor: '#1662ff',
+    buttonDefault: '#1377B0',
+    defaultButtonLabel: '#fff',
   },
 };

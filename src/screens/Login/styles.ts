@@ -15,9 +15,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '100%',
   },
-  spinnerTextStyle: {
-    color: '#FFF',
-  },
 });
 
 export default styles;

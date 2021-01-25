@@ -2,17 +2,15 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   header: {
+    position: 'relative',
     minHeight: 60,
     maxHeight: 60,
-
-    alignItems: 'center',
-    flexDirection: 'row',
   },
   logoContainer: {
+    flex: 1,
     height: 50,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    justifyContent: 'center',
   },
   logoImage: {
     alignItems: 'center',
@@ -27,18 +25,25 @@ const styles = StyleSheet.create({
     left: 2,
   },
   drawerButtonContainer: {
+    flex: 1,
     position: 'absolute',
-    left: 2,
-    flexDirection: 'row',
+    zIndex: 1,
+    left: 4,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    alignContent: 'center',
     height: 50,
+    textAlign: 'center',
   },
   drawerButton: {
+    flex: 1,
+    alignSelf: 'center',
+    zIndex: 3,
     textAlign: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
-    width: 60,
-    height: 52,
-    left: 4,
-    zIndex: 2,
   },
   backButtonContainer: {
     flex: 1,

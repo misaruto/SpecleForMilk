@@ -56,7 +56,7 @@ export const useUser = () => {
   return user;
 };
 
-export const useAuht = () => {
+export const useAuth = () => {
   const auth = useContext(AuthContext);
   return {auth};
 };
@@ -81,12 +81,24 @@ export const AuthProvider: React.FC = ({children}) => {
           (where it is named cookie) for the api to default headers
           At this point user still seeing the spinner*/
           api.defaults.headers = {Cookie: 'uid=' + response.data.cookie};
+
+          const userInfo = await getUserInfo();
+          setUser(userInfo);
           //Stores user access token
           await AsyncStorage.setItem(
             '@RNSpeckleForMilk:token',
             response.data.cookie,
           ).catch((reason) => {
             throw {msg: 'Error when saving user access token reason:', reason};
+          });
+          await AsyncStorage.setItem(
+            '@RNSpeckleForMilk:user',
+            JSON.stringify(userInfo),
+          ).catch((reason) => {
+            throw {
+              msg: 'Error when saving user access user info reason:',
+              reason,
+            };
           });
           return true;
         } else {
@@ -95,10 +107,12 @@ export const AuthProvider: React.FC = ({children}) => {
       })
       .catch((e) => {
         console.log(e);
+
         //Alerta o usuario em caso de não conseguir fazer a requisição http para api
         Alert.alert(
           'Erro ao fazer login, verifique sua conexão com a internet',
         );
+
         return false;
       });
     return result;

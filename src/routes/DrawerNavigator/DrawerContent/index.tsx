@@ -54,7 +54,6 @@ function DrawerContent(props: DrawerContentComponentProps) {
   useEffect(() => {
     updateSwitchThemes();
   }, [updateSwitchThemes, user]);
-
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
@@ -63,12 +62,7 @@ function DrawerContent(props: DrawerContentComponentProps) {
             <View style={{flexDirection: 'row', marginTop: 15}}>
               <Avatar.Image
                 source={{
-                  uri:
-                    user.profileImage &&
-                    user.profileImage.replace(
-                      'localhost:8080',
-                      '73870f262f05.ngrok.io',
-                    ),
+                  uri: user.profileImage,
                 }}
               />
               <View style={{flexDirection: 'column', marginLeft: 15}}>

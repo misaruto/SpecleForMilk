@@ -28,20 +28,19 @@ const Header: React.FC<Header> = ({name, back, drawerButton}) => {
   };
   return (
     <View
-      style={
-        (styles.header,
-        {
-          top: StatusBar.currentHeight,
-          backgroundColor: colors.primary,
-        })
-      }>
+      style={{
+        ...styles.header,
+        top: StatusBar.currentHeight,
+        backgroundColor: colors.primary,
+        marginBottom: StatusBar.currentHeight,
+      }}>
       <View style={styles.logoContainer}>
         {drawerButton && (
           <View style={styles.drawerButtonContainer}>
             <TouchableOpacity
               style={styles.drawerButton}
               onPress={handleOpenDrawer}>
-              <MaterialCommunityIcons name="menu" size={30} color="#fff" />
+              <MaterialCommunityIcons name="menu" size={36} color="#fff" />
             </TouchableOpacity>
           </View>
         )}
@@ -66,7 +65,7 @@ const Header: React.FC<Header> = ({name, back, drawerButton}) => {
         )}
         {!back && name === undefined && (
           <View
-            style={(styles.logoContainer, {backgroundColor: colors.primary})}>
+            style={{...styles.logoContainer, backgroundColor: colors.primary}}>
             <Image source={logoImg} style={styles.logoImage} />
           </View>
         )}

@@ -2,22 +2,29 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   button: {
-    position: 'relative',
     alignSelf: 'center',
-    marginTop: 8,
-    flexDirection: 'row',
-    width: '50%',
+    alignItems: 'center',
+    minWidth: '50%',
+    minHeight: 20,
+  },
+  defaultButton: {
+    alignSelf: 'center',
+    textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 58,
-    borderRadius: 30,
-    padding: 4,
+    flexDirection: 'row',
+    height: 60,
+    width: '80%',
+    borderWidth: 1,
+    borderRadius: 20,
   },
-  buttonText: {
-    margin: 0,
-    color: '#fff',
-    fontSize: 30,
+  defaultLabel: {
+    marginRight: 4,
+    fontSize: 24,
     fontWeight: '700',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
