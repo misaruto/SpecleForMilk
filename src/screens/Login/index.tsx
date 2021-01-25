@@ -4,7 +4,7 @@ import {useForm} from 'react-hook-form';
 
 import styles from './styles';
 import Input, {InputErrorProps} from '../../components/Input';
-import {Text, View} from '../../components/Themed';
+import {View} from '../../components/Themed';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Link from '../../components/Link';
@@ -35,14 +35,14 @@ function Login() {
     if (data.login && data.password) {
       setSpinner({isVisible: true, isCancelable: false});
       await handleAuthentication(data).then((result) => {
-        if (result) {
+        if (result.ok) {
           setSigned(true);
         } else {
           setSpinner({isVisible: false, isCancelable: true});
           setLoginError({isError: true, msg: undefined});
           setPasswdError({
             isError: true,
-            msg: 'Usuário ou senha incorretos',
+            msg: result.msg ? result.msg : 'Usuário ou senha incorretos',
           });
         }
       });
