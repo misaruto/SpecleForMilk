@@ -10,6 +10,8 @@ import History from '../../screens/History';
 import {useColors, useSpinner} from '../../contexts/ThemeContext';
 import {useNavigation} from '@react-navigation/native';
 
+import Badge from './Badge';
+
 const Tab = createMaterialTopTabNavigator<TopTabParamList>();
 
 export default function TopTabNavigator() {
@@ -30,18 +32,24 @@ export default function TopTabNavigator() {
         showIcon: false,
         pressColor: colors.tabBarPressColor,
         indicatorContainerStyle: {
-          flex: 1,
-          justifyContent: 'center',
-          alignSelf: 'center',
-          alignItems: 'center',
-          top: '110%',
+          top: '100%',
+          zIndex: 2,
         },
         indicatorStyle: {
+          zIndex: 3,
           backgroundColor: colors.primary,
-          height: 10,
         },
         contentContainerStyle: {
           backgroundColor: colors.background,
+        },
+        labelStyle: {
+          color: colors.text,
+        },
+        renderBadge: ({route}) => {
+          console.log(route.name === 'Home');
+          if (route.name === 'Home') {
+            return <Badge />;
+          }
         },
         iconStyle: {
           alignSelf: 'center',

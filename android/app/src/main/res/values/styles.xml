@@ -9,7 +9,7 @@
 			@color/ic_launcher_background
 		</item>
 		<item name="android:windowBackground">
-			@mipmap/splash_background
+			@drawable/splash_background
 		</item>
 	</style>
 </resources>

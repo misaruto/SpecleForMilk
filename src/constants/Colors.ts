@@ -19,6 +19,8 @@ export default {
     activeTintColor: '#1682C2',
     buttonDefault: '#1377B0',
     defaultButtonLabel: '#fff',
+    badgeBackground: '#2A5066',
+    badgeText: '#fff',
   },
   dark: {
     primary: '#1662ff',
@@ -37,5 +39,7 @@ export default {
     activeTintColor: '#1662ff',
     buttonDefault: '#1377B0',
     defaultButtonLabel: '#fff',
+    badgeBackground: '#2A5066',
+    badgeText: '#fff',
   },
 };

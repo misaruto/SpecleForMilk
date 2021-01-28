@@ -3,5 +3,5 @@
     <item android:drawable="@color/ic_launcher_background"/>
 	<item
         android:adjustViewBounds="true"
-        android:drawable="@mipmap/splash_screen" android:gravity="fill" />
+        android:drawable="@drawable/splash_screen" android:gravity="fill" />
 </layer-list>
